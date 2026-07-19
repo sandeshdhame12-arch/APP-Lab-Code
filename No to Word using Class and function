@@ -1,0 +1,25 @@
+class Number2word:
+
+
+    numbers = ['zero' ,  'one','two','three','four','five','six','seven','eight','nine']
+    
+    list=[]
+
+
+    def input_numbers(self):
+        self.list = input("Enter number:")
+
+
+    def convert_to_word(self):
+        self.input_numbers()
+        for x in self.list:
+            print(self.numbers[int(x)],end=" ")
+
+
+if __name__=="__main__":
+    object = Number2word()
+    object.convert_to_word()
+
+OUTPUT:
+Enter number:159753
+one five nine seven five three 
