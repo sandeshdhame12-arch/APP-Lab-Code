@@ -1,0 +1,13 @@
+dict = { 0:'zero',1:'one',2:'two',3:'three',4:'four',5:'five',6:'six', 7:'seven',8:'eight',9:'nine'}
+
+no = input("Enter No:")
+
+print(type(dict))
+
+for x in no:
+    print(dict[int(x)], end=" ")
+
+OUTPPUT:
+Enter No:123456
+<class 'dict'>
+one two three four five six 
