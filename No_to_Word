@@ -1,0 +1,19 @@
+"""
+Convert the number in word
+input=123
+output= one two three
+
+"""
+list = ['zero','one','two','three','four','five','six', 'seven','eight','nine']
+
+no = input("Enter No:")
+
+print(type(no))
+
+for x in no:
+    print(list[int(x)], end="  ")
+
+OUTPUT:
+Enter No:123456
+<class 'str'>
+one  two  three  four  five  six
