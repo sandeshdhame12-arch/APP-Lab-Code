@@ -1,0 +1,17 @@
+numbers = ['zero' ,  'one','two','three','four','five','six','seven','eight','nine']
+list = input("Enter the number :")
+
+for x in list:
+    print(numbers[int(x)])
+
+OUTPUT:
+Enter the number :123456789
+one
+two
+three
+four
+five
+six
+seven
+eight
+nine
