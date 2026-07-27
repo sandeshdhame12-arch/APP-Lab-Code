@@ -1,0 +1,14 @@
+from Book import Bookcollection
+
+class Transaction:
+
+
+    book_collection = Bookcollection()
+    list = []
+    book_collection.BOOKLIST =list
+
+    def __init__(self):
+       pass
+
+    def display_avi_book(self):
+        self.book_collection.retrive()
