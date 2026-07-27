@@ -1,0 +1,121 @@
+2
+
+from Book import Book
+
+3
+
+4
+
+class BookCollection(Book):
+
+5
+
+6
+
+7
+
+8
+
+9
+
+10
+
+11
+
+12
+
+13
+
+14
+
+15
+
+16
+
+17
+
+18
+
+19
+
+20
+
+21
+
+22
+
+23
+
+24
+
+25
+
+26
+
+27
+
+BOOKLIST []
+
+def create(self):
+
+obj = Book()
+
+id= input('Enter Book ID: ')
+
+title input ('Enter Book Title: ')
+
+author input('Enter Book Author: ')
+
+publisher input('Enter Book Publisher:')
+
+obj.ID = id
+
+obj.TITLE title
+
+obj.AUTHOR author
+
+obj.PUBLISHER = publisher
+
+self.BOOKLIST.append(obj)
+
+def update(self):
+
+pass
+
+def delete(self):
+
+pass
+
+28
+
+def retrive(self):
+
+29
+
+30
+
+31
+
+32
+
+33
+
+34
+
+35
+
+
+
+
+
+for 1s in self.BOOKLIST:
+
+print(1s.ID," ", 1s.TITLE," 1s. AUTHOR," ", 1s.PUBLISHER)
+
+if_name="_main__":
+
+object BookCollection()
+
+object.create()
+
+object.retrive()
