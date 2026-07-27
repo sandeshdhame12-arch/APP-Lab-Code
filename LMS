@@ -1,0 +1,70 @@
+class Book:
+
+    ID=''
+    TITLE=''
+    AUTHOR=''
+    PUBLISHER=''
+
+from Book import Book
+
+class Bookcollection(Book):
+
+    BOOKLIST=[]
+
+    def create(self):
+        obj = Book()
+        id = input("Enter Book Id:")
+        title= input("Enter Book title:")
+        author=input("Enter Book Author:")
+        publisher=input("Enter book Publisher:")
+
+        obj.ID=id
+        obj.TITLE=title
+        obj.AUTHOR=author
+        obj.PUBLISHER=publisher
+
+        self.BOOKLIST.append(obj)
+
+    def update(self):
+            id=input("Enter book id:")
+
+
+            for ls in self.BOOKLIST:
+                 if ls.ID==id:
+                      title=input("Enter book title:")
+                      author = input("Enter Book author:")
+                      publisher=input("Enter book publisher:")
+                      ls.TITLE=title
+                      ls.AUTHOR=author
+                      ls.PUBLISHER=publisher
+        
+
+    def delete(self):
+        pass
+
+    def retrive(self):
+        for Book in self.BOOKLIST:
+            print(Book.ID," ",Book.TITLE," ",Book.AUTHOR," ",Book.PUBLISHER)
+
+if __name__=="__main__":
+    object = Bookcollection()
+    choice = 0
+
+    while choice <=5:
+        print("*    *   *   *   M E N U     *   *   *   *   *")
+        print("1. Insert Book")
+        print("2. Display Books")
+        print("3. Update Book")
+        print("4. Delete Book")
+        print("5. Exit")
+
+        choice = int(input('Enter your choice : '))
+
+        if choice == 1:
+            object.create()
+        elif choice ==2:
+            object.retrive()
+        elif choice == 3:
+            object.update()
+        elif choice ==4:
+            object.delete()
