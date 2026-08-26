@@ -1,0 +1,106 @@
+class Report:
+    """Represents a report with data, a title, and applied formatting."""
+    
+    def __init__(self, title: str, data: list):
+        self.title = title
+        self.data = data
+        self.formatters = []
+
+    @classmethod
+    def from_template(cls, template_name: str, data: list):
+        """Class method to create reports based on predefined templates."""
+        templates = {
+            "summary": "Summary Report",
+            "detailed": "Detailed Analysis Report",
+            "audit": "System Audit Log"
+        }
+        title = templates.get(template_name, "Standard Report")
+        return cls(title, data)
+
+    def add_formatter(self, formatter_func):
+        """Instance method to register a standalone formatting function."""
+        self.formatters.append(formatter_func)
+        return self
+
+    def __str__(self):
+        """Magic method for clean string formatting and output."""
+        output = f"=== {self.title.upper()} ===\n"
+        formatted_data = self.data
+        
+        # Apply all registered formatters sequentially
+        for fmt in self.formatters:
+            formatted_data = fmt(formatted_data)
+            
+        for item in formatted_data:
+            output += f"- {item}\n"
+        return output.strip()
+
+    def __len__(self):
+        """Magic method to return the number of items in the report data."""
+        return len(self.data)
+
+    def __add__(self, other):
+        """Magic method to combine two reports together."""
+        if not isinstance(other, Report):
+            raise TypeError("Can only combine with another Report instance.")
+        new_title = f"{self.title} & {other.title}"
+        new_data = self.data + other.data
+        
+        # Create a new combined report and carry forward existing formatters
+        combined = Report(new_title, new_data)
+        combined.formatters = self.formatters + other.formatters
+        return combined
+
+
+# --- APPROACH 1: Standalone formatters for .add_formatter() ---
+def uppercase_formatter(data: list) -> list:
+    """Standard formatting function to uppercase all items."""
+    return [str(item).upper() for item in data]
+
+
+def bullet_prefix_formatter(prefix: str):
+    """Factory that returns a standard formatting function with a prefix."""
+    def formatter(data: list) -> list:
+        return [f"{prefix} {item}" for item in data]
+    return formatter
+
+
+# --- APPROACH 2: Actual Decorators for Report Generator Functions ---
+def uppercase_decorator(func):
+    """Decorator to uppercase the data output of a report generator function."""
+    def wrapper(*args, **kwargs):
+        report = func(*args, **kwargs)
+        report.data = [str(item).upper() for item in report.data]
+        return report
+    return wrapper
+
+
+@uppercase_decorator
+def generate_custom_summary(data):
+    """A decorated function that returns an automatically formatted report."""
+    return Report("Custom Decorated Summary", data)
+
+
+# --- Example Usage ---
+if __name__ == "__main__":
+    print("--- Testing Approach 1: Dynamic Formatters ---")
+    # Using standalone formatters with the method chain
+    report1 = Report.from_template("summary", ["sales up 10%", "new users gained"])
+    report1.add_formatter(uppercase_formatter)
+    print(report1)
+    print(f"Total items in report1: {len(report1)}\n")
+
+    report2 = Report.from_template("audit", ["server rebooted"])
+    report2.add_formatter(bullet_prefix_formatter("[LOG]"))
+    print(report2)
+    print(f"Total items in report2: {len(report2)}\n")
+
+    print("--- Testing Magic Method Addition ---")
+    combined_report = report1 + report2
+    print(combined_report)
+    print(f"Total items in combined report: {len(combined_report)}\n")
+
+    print("--- Testing Approach 2: Function Decorator ---")
+    # Using the decorated function pattern
+    decorated_report = generate_custom_summary(["low disk space", "database backup complete"])
+    print(decorated_report)
